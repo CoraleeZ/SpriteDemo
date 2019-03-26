@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Public</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // var world = [
+      //   [0,0,0,0,0,0,0],
+      //   [0,0,0,0,0,0,0],
+      //   [0,0,0,0,0,0,0],
+      //   [0,0,0,0,0,0,0],
+      //   [0,0,0,0,0,0,0],
+      //   [0,0,0,0,0,0,0],
+      //   [0,0,0,0,0,0,0]
+      // ];
+      var frame = 1;
+      var lastDir;
+      var actionCode = [];
+      var location = document.getElementById("start");
+      location.innerHTML = "<img src='./assets/images/Teddiursa/walk-cycle/1.png' alt='sprite' id='player'>";
+
+      $('#player').css('position', 'absolute');
+      $('#player').css('left', '0px');
+      $('#player').css('top', '300px');
+
+      function gravity() {
+        if (parseInt($('#player').css('top')) < 300) {
+          $('#player').css('position', 'absolute');
+          jumpPos = $('#player').css('top');
+          jumpPos = parseInt(jumpPos, 10);
+          jumpPos += 10;
+          $('#player').css('top', jumpPos + 'px');
+        }
+      }
+      setInterval(gravity, 100);
+
+
+      window.addEventListener("keydown", function (event) {
+        // if (event.keyCode == 32 || event.keyCode == 39 || event.keyCode == 37) {
+        //   actionCode.push(event.keyCode);
+        // }
+
+        if (event.keyCode == 32) {
+          if (lastDir == "left") {
+            var spriteDir = './assets/images/Teddiursa/jump-cycle/';
+          }
+          else {
+            var spriteDir = './assets/images/Teddiursa/jump-mirror/';
+          }
+
+
+          $('#player').attr('src', spriteDir + '1.png');
+          let frame = 1;
+          function raiseUp() {
+            if (frame < 3) {
+              frame += 1;
+              $('#player').attr('src', spriteDir + frame + '.png');
+            }
+            if (frame == 3) {
+              // $('#player').attr('src', './assets/images/Teddiursa/walk-cycle/7.png');
+            }
+            
+            $('#player').css('position', 'absolute');
+            jumpPos = $('#player').css('top');
+            jumpPos = parseInt(jumpPos, 10);
+            jumpPos -= 10;
+            $('#player').css('top', jumpPos + 'px');
+          }
+
+          setTimeout(raiseUp, 100);
+          setTimeout(raiseUp, 100);
+          setTimeout(raiseUp, 100);
+          setTimeout(raiseUp, 100);
+          setTimeout(raiseUp, 100);
+        }
+
+        if (event.keyCode == 37) {
+          lastDir = "left";
+          if (frame < 8) {
+            frame += 1;
+          }
+          else {
+            frame = 1;
+          }
+
+          // $('#player').attr('src', './assets/images/Teddiursa/walk-cycle/' + frame + '.png');
+          // $('#player').css('position', 'absolute');
+          location.innerHTML = '';
+          location = location.previousSibling;
+          location.innerHTML = "<img src='./assets/images/Teddiursa/walk-cycle/1.png' alt='sprite' id='player'>";
+          // prevPos = $('#player').css('left');
+          // prevPos = parseInt(prevPos, 10);
+          // prevPos -= 5;
+          // $('#player').css('left', prevPos + 'px');
+        }
+
+        else if (event.keyCode == 39) {
+          lastDir = "right";
+          if (frame < 8) {
+            frame += 1;
+          }
+          else {
+            frame = 1;
+          }
+
+          // $('#player').attr('src', './assets/images/Teddiursa/walk-mirror/' + frame + '.png');
+          // $('#player').css('position', 'absolute');
+
+          location.innerHTML = '';
+          location = location.nextSibling;
+          location.innerHTML = "<img src='./assets/images/Teddiursa/walk-cycle/1.png' alt='sprite' id='player'>";
+
+          // prevPos = $('#player').css('left');
+          // prevPos = parseInt(prevPos, 10);
+          // prevPos += 5;
+          // $('#player').css('left', prevPos + 'px');
+        }
+      }, true);
+
+      // function action() {
+      //   if (actionCode.length == 2) {
+      //     if ((actionCode[0] == 37 && actionCode[1] == 39) || (actionCode[1] == 37 && actionCode[0] == 39)) {
+      //       break;
+      //     }
+      //     else {
+      //       if ((actionCode[0] == 37 && actionCode[1] == 32) || (actionCode[0] == 37 && actionCode[1] == 32)){
+      //       }
+      //   }
+      //   else {
+      //     if (actionCode[0] == 32) {
+      //       if (lastDir == "left") {
+      //         var spriteDir = './assets/images/Teddiursa/jump-cycle/';
+      //       }
+      //       else {
+      //         var spriteDir = './assets/images/Teddiursa/jump-mirror/';
+      //       }
+
+
+      //       $('#player').attr('src', spriteDir + '1.png');
+      //       let frame = 1;
+      //       function raiseUp() {
+      //         if (frame < 3) {
+      //           frame += 1;
+      //           $('#player').attr('src', spriteDir + frame + '.png');
+      //         }
+      //         if (frame == 3) {
+      //           // $('#player').attr('src', './assets/images/Teddiursa/walk-cycle/7.png');
+      //         }
+      //         $('#player').css('position', 'absolute');
+      //         jumpPos = $('#player').css('top');
+      //         jumpPos = parseInt(jumpPos, 10);
+      //         jumpPos -= 10;
+      //         $('#player').css('top', jumpPos + 'px');
+      //       }
+
+      //       setTimeout(raiseUp, 100);
+      //       setTimeout(raiseUp, 100);
+      //       setTimeout(raiseUp, 100);
+      //       setTimeout(raiseUp, 100);
+      //       setTimeout(raiseUp, 100);
+      //     }
+
+      //     if (event.keyCode == 37) {
+      //       lastDir = "left";
+      //       if (frame < 8) {
+      //         frame += 1;
+      //       }
+      //       else {
+      //         frame = 1;
+      //       }
+
+      //       $('#player').attr('src', './assets/images/Teddiursa/walk-cycle/' + frame + '.png');
+      //       $('#player').css('position', 'absolute');
+      //       prevPos = $('#player').css('left');
+      //       prevPos = parseInt(prevPos, 10);
+      //       prevPos -= 5;
+      //       $('#player').css('left', prevPos + 'px');
+      //     }
+
+      //     else if (event.keyCode == 39) {
+      //       lastDir = "right";
+      //       if (frame < 8) {
+      //         frame += 1;
+      //       }
+      //       else {
+      //         frame = 1;
+      //       }
+
+      //       $('#player').attr('src', './assets/images/Teddiursa/walk-mirror/' + frame + '.png');
+      //       $('#player').css('position', 'absolute');
+
+      //       prevPos = $('#player').css('left');
+      //       prevPos = parseInt(prevPos, 10);
+      //       prevPos += 5;
+      //       $('#player').css('left', prevPos + 'px');
+      //     }
+      //   }
+
+      //   for (i = 0; i < actionCode.length; i++) {
+      //     actionCode.pop();
+      //   }
+      // }
+
+    });
+
+  </script>
+</head>
+
+<body>
+  <div>
+    <div>
+      <div id='start'></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+
+  <!-- <img src="./assets/images/Teddiursa/walk-cycle/1.png" alt="sprite" id='player'> -->
+
+
+  <app-root></app-root>
+<script type="text/javascript" src="runtime.js"></script><script type="text/javascript" src="es2015-polyfills.js" nomodule></script><script type="text/javascript" src="polyfills.js"></script><script type="text/javascript" src="styles.js"></script><script type="text/javascript" src="vendor.js"></script><script type="text/javascript" src="main.js"></script></body>
+
+</html>
